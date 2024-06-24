@@ -1,0 +1,41 @@
+<div class="container mt-3">
+    <div class="container">
+        <div class="alert alert-danger mt-3 <%= 'd-none' if !@articles.empty? %>">
+            Nothing posted
+        </div>
+    </div>
+
+
+    <% @articles.each do |article| %>
+        <div class="row gx-5">
+            <div class="col-md-6 mb-4">   
+                <div class="bg-image hover-overlay ripple shadow-2-strong rounded-5" data-mdb-ripple-color="light">
+                    <img src="https://mdbcdn.b-cdn.net/img/new/slides/080.webp" class="img-fluid" />
+                    <a href="#!">
+                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <span class="badge bg-danger px-2 py-1 shadow-1-strong mb-3"><%=link_to "#{article.user.first_name} #{article.user.last_name}" ,profile_path(article.user),class: "text-decoration-none text-black"  %></span>
+                <h4><strong><%= link_to article.title, article_path(article),class: "text-decoration-none text-black"%></strong></h4>
+                <p class="text-muted">
+                <%= truncate(article.description, length: 250) %>
+                </p>
+                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="custom-button text-decoration-none"><%= link_to 'Read more', article_path(article),class: "text-decoration-none text-white" %></button>
+                <%if user_signed_in? && (current_user == article.user || current_user.admin)%>
+                    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary"><%= link_to 'Edit', edit_article_path(article),class: "text-decoration-none text-black" %></button>
+                                                <%= link_to "Delete", article_path(article), data: {
+                                                    turbo_method: :delete,
+                                                    turbo_confirm: "Are you sure?"
+                                                },class: "btn btn-outline-danger" %>
+                <%end %>
+                <hr class="my-3" style="height: 1px;" />
+                <small>Created <%= time_ago_in_words(article.created_at)%> ago,
+                                        edited <%= time_ago_in_words(article.updated_at)%> ago</small>            
+            </div>
+
+        </div>
+    <% end %>     
+</div>   

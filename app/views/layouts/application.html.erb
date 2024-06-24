@@ -8,10 +8,14 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://cdn.tiny.cloud/1/ks2n1rxtsnxp8107jeargcxlwcuq033q08o8nrvbbdrn5a3g/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   </head>
 
   <body>
-  <%= render "layouts/messages" %>
-    <%= yield %>
-  </body>
+  <%= render "layouts/nav" %>
+      <div id="page-content" >
+      <%= render 'layouts/messages' %>
+      <%= yield %> 
+    </div>
+ 
 </html>

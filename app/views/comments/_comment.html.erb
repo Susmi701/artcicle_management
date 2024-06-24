@@ -1,0 +1,30 @@
+<div class="d-flex flex-start mt-3">
+    <img class="rounded-circle shadow-1-strong me-3"
+    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60" height="60" />
+    <div>
+        <h6 class="fw-bold mb-1">
+        <% if comment.user %>
+            <%= link_to "#{comment.user.first_name} #{comment.user.last_name}", profile_path(comment.user), class: "text-decoration-none" %>
+        <% else %>
+            Anonymous
+        <% end %>
+        </h6>
+        <div class="d-flex align-items-center mb-3">
+            <p class="mb-0">Posted <%= time_ago_in_words(comment.created_at)%> ago</p>
+            <% if current_user && (comment.user == current_user || current_user.admin || current_user==comment.article.user)%>
+                <%= link_to article_comment_path(article_id: comment.article_id, id: comment.id), 
+                                                    method: :delete,
+                                                    data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                                                    class: "btn btn-sm btn-danger ms-2" do %>
+                                                            <%= fa_icon 'trash' %>     
+                                                    <% end %>
+                <%= link_to edit_article_comment_path(@article, comment), class: "btn btn-sm btn-primary ms-2" do %>
+                    <%= fa_icon 'edit' %>
+                <% end %>
+            <% end %>
+            <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+        </div>
+        <p class="mb-0"><%= comment.content.html_safe %></p>
+    </div>
+</div>
+<hr class="my-0" style="height: 1px;" />         

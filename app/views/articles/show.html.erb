@@ -1,0 +1,51 @@
+<div class="row mx-5">
+    <div class="col-11 justify-content-center mx-5">
+        <div class="container bg-white m-4  ">
+            <div class="card " >
+                <div class="card-header fst-italic text-center">
+                    <%if @article.user%>
+                        by <%=link_to @article.user.first_name ,profile_path(@article.user),class:"text-black"  %>
+                    <% end %>              
+                </div>
+                <div class="card-body">    
+                    <h1 class="text-center"><%= @article.title %> </h1>      
+                    <p class="card-text"><%= simple_format(@article.description) %></p>
+                    <%if current_user && (current_user == @article.user || current_user.admin?)%>
+                        <%= link_to 'Edit', edit_article_path(@article),class: "btn btn-outline-success" %>
+                        <%= link_to "Delete", article_path(@article), data: {
+                                                        turbo_method: :delete,
+                                                        turbo_confirm: "Are you sure?"
+                                                    },class: "btn btn-outline-danger"%>
+                    <%end%>
+                </div>
+            </div>
+
+
+            <div id="comments">
+                <div class="container my-3 ">
+                    <div class="row d-flex ">
+                        <div class="col-md-9 col-lg-7">
+                            <div class="card text-body">
+                                <div class="card-body p-4">
+                                    <h4 class="mb-2">Recent comments</h4>
+                                    <hr class="my-0" style="height: 1px;" />
+                                    <%= "Be the first one to comment" if @article.comments.empty? %>
+                                    <%= render @article.comments %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-3 ">
+                        <%= render 'comments/form'%>
+                    </div>
+                </div>
+
+
+
+                <div class="col text-center m-4">
+                        <%= link_to "Return",articles_path, class: "text-secondary " %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
