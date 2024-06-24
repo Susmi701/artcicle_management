@@ -1,24 +1,19 @@
-# README
+Authors – should be able to register with basic info which includes email address. 
+There should be an open registration for authors where they should complete email validation to complete it
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Authors can add one or many articles
 
-Things you may want to cover:
+Login, forgot password pages should be implemented so that registered users can login and add articles.
+Application should have an admin user to monitor Users and Articles, they should be able to delete Authors, articles and comments. No need for open registration.
 
-* Ruby version
+ 
 
-* System dependencies
+Articles – belongs to author and has many comments, use a WYSIWYG Editor for content management. Any user can comment on articles (As Anonymous or as author)
 
-* Configuration
+ 
 
-* Database creation
+General cases
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Use Bootstrap
+Validations should be implemented
+Use MySQL as Database
